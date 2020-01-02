@@ -23,8 +23,8 @@ keys:
 
 - run:
 name: install dependencies
-command: |
-python3.6 -m venv venv
+command:
+python3 -m venv venv
 . venv/bin/activate
 make install
 # Install hadolint
@@ -38,6 +38,6 @@ key: v1-dependencies-{{ checksum "requirements.txt" }}
 # run lint!
 - run:
 name: run lint
-command: |
+command:
 . venv/bin/activate
 make lint 
