@@ -9,8 +9,7 @@ jobs:
       - checkout
       -
         restore_cache: null
-        keys:
-           'v1-dependencies-{{ checksum "requirements.txt" }}'
+        keys: 'v1-dependencies-{{ checksum "requirements.txt" }}'
       - v1-dependencies-
       -
         run:
