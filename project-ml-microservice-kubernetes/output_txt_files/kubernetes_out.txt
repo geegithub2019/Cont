@@ -1,0 +1,8 @@
+GC02X20R2JG5ME:project-ml-microservice-kubernetes a212440163$ ./run_kubernetes.sh 
+deployment.apps/my-kubeproj-app created
+NAME                               READY   STATUS              RESTARTS   AGE
+my-kubeproj-app-7dc764869c-wsfzb   0/1     ContainerCreating   0          0s
+
+GC02X20R2JG5ME:project-ml-microservice-kubernetes a212440163$ kubectl get pod
+NAME                               READY   STATUS    RESTARTS   AGE
+my-kubeproj-app-7dc764869c-wsfzb   1/1     Running   0          4m18s
