@@ -27,6 +27,7 @@ jobs:
               python3 -m venv venv
               . venv/bin/activate
               apt update && apt install -y git build-essential cmake libgeos-dev libgdal-dev
+              make
               make install
               #Install hadolint
               apt install wget
