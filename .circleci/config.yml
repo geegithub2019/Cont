@@ -23,7 +23,7 @@ jobs:
 
       - run:
           name: install dependencies
-          command: |
+           command: |
              python3 -m venv venv
              . venv/bin/activate
              make install
@@ -38,6 +38,6 @@ jobs:
 # run lint!
       - run:
           name: run lint
-          command: |
+           command: |
              . venv/bin/activate
              make lint
