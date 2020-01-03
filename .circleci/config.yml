@@ -28,8 +28,7 @@ jobs:
               . venv/bin/activate
               apt update && apt install -y git build-essential cmake libgeos-dev libgdal-dev
               ls
-              pip install --upgrade pip &&\
-              pip install -r requirements.txt
+              pip install --upgrade pip
               make
               make install
               #Install hadolint
