@@ -1,4 +1,4 @@
-<include a CircleCI status badge, here>
+[![CircleCI](https://circleci.com/gh/geegithub2019/Cont.svg?style=svg)](https://circleci.com/gh/geegithub2019/Cont)
 
 ## Project Overview
 
