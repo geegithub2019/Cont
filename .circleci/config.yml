@@ -28,7 +28,7 @@ jobs:
               . venv/bin/activate
               apt update && apt install -y git build-essential libgdal-dev
               pip install --upgrade pip
-              make
+              ./configure
               make install
               #Install hadolint
               apt install wget
