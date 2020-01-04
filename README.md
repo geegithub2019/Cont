@@ -1,42 +1,53 @@
 [![CircleCI](https://circleci.com/gh/geegithub2019/Cont.svg?style=svg)](https://circleci.com/gh/geegithub2019/Cont)
 
 ## Project Overview
+The project is on operationalizing a Machine Learning Microservice based app. The following steps were undertaken to put the app in production:
 
-In this project, you will apply the skills you have acquired in this course to operationalize a Machine Learning Microservice API. 
+1) Create a environment with Python3.
+2) Cloning the files required for the app and its dependencies.
+3) Dockerizing the app and testing the app.
+4) Uploading the app to the docker registry.
+5) Deploying the app in a kubernetes cluster with minikube.
+6) Testing the deployment code with circlci.
 
-You are given a pre-trained, `sklearn` model that has been trained to predict housing prices in Boston according to several features, such as average rooms in a home and data about highway access, teacher-to-pupil ratios, and so on. You can read more about the data, which was initially taken from Kaggle, on [the data source site](https://www.kaggle.com/c/boston-housing). This project tests your ability to operationalize a Python flask app—in a provided file, `app.py`—that serves out predictions (inference) about housing prices through API calls. This project could be extended to any pre-trained machine learning model, such as those for image recognition and data labeling.
 
-### Project Tasks
+### Instructions
 
-Your project goal is to operationalize this working, machine learning microservice using [kubernetes](https://kubernetes.io/), which is an open-source system for automating the management of containerized applications. In this project you will:
-* Test your project code using linting
-* Complete a Dockerfile to containerize this application
-* Deploy your containerized application using Docker and make a prediction
-* Improve the log statements in the source code for this application
-* Configure Kubernetes and create a Kubernetes cluster
-* Deploy a container using Kubernetes and make a prediction
-* Upload a complete Github repo with CircleCI to indicate that your code has been tested
+1) Created a new environment with the following commands:
 
-You can find a detailed [project rubric, here](https://review.udacity.com/#!/rubrics/2576/view).
+python3 -m venv ~/.devops
+source ~/.devops/bin/activate
 
-**The final implementation of the project will showcase your abilities to operationalize production microservices.**
+2) Used pip to upgrade pip and install requirements for the app.
 
----
+pip install --upgrade pip &&\
+		pip install -r requirements.txt
+    
+3) Created a docker file with that will define the app container runtime ,deploy app and expose port so that users can access the application with the following commands:
 
-## Setup the Environment
+FROM python:3.7.3-stretch
+WORKDIR /app
+COPY . /app.py /app/
+RUN pip install --upgrade pip &&\
+    pip install --trusted-host pypi.python.org -r requirements.txt
+EXPOSE 80
+RUN chmod 644 app.py
+CMD ["python", "app.py"]
 
-* Create a virtualenv and activate it
-* Run `make install` to install the necessary dependencies
+4) Used hadolint to validate the app python code with the following command in the Makefile:
+hadolint Dockerfile
 
-### Running `app.py`
+5) Deployed the docker app container with the script 'run_docker.sh' and it will run on port 80 and the host port is on port 8000.
 
-1. Standalone:  `python app.py`
-2. Run in Docker:  `./run_docker.sh`
-3. Run in Kubernetes:  `./run_kubernetes.sh`
+6) Tested the flask framework based app using api calls with the the shell script 'make_prediction.sh' and the response should be a '200' ok which should be seen from the app logs. 
 
-### Kubernetes Steps
+7) Uploaded the container image with app to the docker registry using the script 'upload_docker.sh'
 
-* Setup and Configure Docker locally
-* Setup and Configure Kubernetes locally
-* Create Flask app in Container
-* Run via kubectl
+8) Deployed the app onto the kubernetes cluster with minikube using the script 'run_kubernetes.sh'.
+
+9) Tested the app running on the kubernetes cluster with the shell script 'make_prediction.sh'. This time the connection will be refused as the apps in a kubernetes cluster can be accessed only via proxy.
+
+10) Validated the code with circleci and ensuring code passed the lint tests
+
+
+
